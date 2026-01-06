@@ -358,7 +358,7 @@
             border-radius: 50%;
         }
 
-        /* ===== PROJECTS SECTION ===== */
+        /* ===== PROJECTS SECTION - ENHANCED ===== */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -373,6 +373,7 @@
             overflow: hidden;
             border-radius: 8px;
             background: var(--medium-gray);
+            cursor: pointer;
         }
 
         .project-card::before {
@@ -395,7 +396,6 @@
         .project-img-container {
             height: 220px;
             overflow: hidden;
-            cursor: pointer;
             position: relative;
         }
 
@@ -445,6 +445,59 @@
 
         .backend-tag {
             border-left: 3px solid var(--accent);
+        }
+
+        /* Hover overlay effect */
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(58, 134, 255, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 3;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .project-overlay p {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .view-project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-project-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* ===== ABOUT SECTION ===== */
@@ -837,7 +890,7 @@
             box-shadow: 0 8px 25px rgba(131, 56, 236, 0.3);
         }
 
-        /* ===== LIGHTBOX/MODAL STYLES ===== */
+        /* ===== ENHANCED MODAL/LIGHTBOX STYLES ===== */
         .modal {
             display: none;
             position: fixed;
@@ -853,84 +906,139 @@
 
         .modal-content {
             display: block;
-            margin: 5% auto;
-            max-width: 90%;
-            max-height: 90vh;
+            margin: auto;
+            max-width: 85%;
+            max-height: 85vh;
             object-fit: contain;
             animation: zoomIn 0.3s;
             box-shadow: 0 0 40px rgba(58, 134, 255, 0.2);
             border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        .close {
+        /* Professional X button */
+        .modal-close {
             position: absolute;
             top: 20px;
-            right: 35px;
-            color: white;
+            right: 30px;
+            color: #f1f1f1;
             font-size: 40px;
-            font-weight: bold;
-            transition: 0.3s;
+            font-weight: 300;
             cursor: pointer;
-        }
-
-        .close:hover {
-            color: var(--primary);
-            transform: rotate(90deg);
-        }
-
-        .caption {
-            text-align: center;
-            color: var(--white);
-            padding: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .view-image-btn {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.6rem 1.2rem;
-            background-color: rgba(58, 134, 255, 0.9);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            cursor: pointer;
+            z-index: 10000;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            opacity: 0;
+            justify-content: center;
             transition: var(--transition);
-            z-index: 3;
+            background: rgba(26, 26, 26, 0.7);
+            border-radius: 50%;
+            border: 2px solid var(--primary);
         }
 
-        .project-img-container:hover .view-image-btn {
-            opacity: 1;
+        .modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+            background: rgba(58, 134, 255, 0.1);
+            border-color: var(--accent);
         }
 
-        .view-image-btn:hover {
-            background-color: var(--primary-dark);
+        /* Project info in modal */
+        .modal-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            padding: 2rem;
+            border-top: 2px solid var(--primary);
         }
 
-        .view-image-btn i {
+        .modal-info h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .modal-info p {
+            color: var(--off-white);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .modal-tag {
+            padding: 0.4rem 1rem;
+            background-color: var(--primary);
             font-size: 0.8rem;
+            border-radius: 20px;
+            font-weight: 500;
+            color: var(--white);
+        }
+
+        /* Navigation arrows */
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+            transform: translateY(-50%);
+            z-index: 10000;
+        }
+
+        .modal-arrow {
+            background: rgba(26, 26, 26, 0.7);
+            color: white;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .modal-arrow:hover {
+            background: rgba(58, 134, 255, 0.2);
+            transform: scale(1.1);
+            border-color: var(--accent);
+        }
+
+        /* Image counter */
+        .image-counter {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            color: white;
+            font-size: 1.2rem;
+            background: rgba(26, 26, 26, 0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            z-index: 10000;
         }
 
         @keyframes zoomIn {
-            from {transform: scale(0.8); opacity: 0;}
-            to {transform: scale(1); opacity: 1;}
+            from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
 
         @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
-        /* New animation for triangles */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
@@ -942,6 +1050,10 @@
             .contact-container,
             .about-content {
                 gap: 4rem;
+            }
+            
+            .modal-content {
+                max-width: 90%;
             }
         }
 
@@ -996,7 +1108,22 @@
             }
 
             .modal-content {
-                width: 90%;
+                max-width: 95%;
+                max-height: 60vh;
+            }
+            
+            .modal-nav {
+                padding: 0 1rem;
+            }
+            
+            .modal-arrow {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .modal-info {
+                padding: 1.5rem;
             }
 
             /* Adjust triangle positions on mobile */
@@ -1029,14 +1156,25 @@
                 font-size: 15rem;
             }
 
-            .modal-content {
-                width: 95%;
-            }
-
-            .close {
+            .modal-close {
                 top: 15px;
-                right: 25px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
                 font-size: 30px;
+            }
+            
+            .modal-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .image-counter {
+                top: 15px;
+                left: 15px;
+                font-size: 1rem;
+                padding: 0.3rem 0.8rem;
             }
 
             /* Hide some triangles on very small screens */
@@ -1148,14 +1286,18 @@
             <p class="fade-in">Hands-on work demonstrating my learning journey</p>
             <div class="projects-grid">
                 <!-- Project 1 -->
-                <div class="project-card fade-in">
+                <div class="project-card fade-in" data-project-index="0">
                     <div class="project-img-container">
                         <img src="484236646_1222918102712725_7758611042177879553_n.jpg" 
                             alt="Permanent Record" 
                             class="project-img">
-                        <button class="view-image-btn" onclick="openModal('484236646_1222918102712725_7758611042177879553_n.jpg', 'Permanent Record')">
-                            <i class="fas fa-expand"></i> View Image
-                        </button>
+                        <div class="project-overlay">
+                            <h4>Permanent Record System</h4>
+                            <p>A student record management system with CRUD functionality and data visualization.</p>
+                            <button class="view-project-btn" onclick="openProjectModal(0)">
+                                <i class="fas fa-expand"></i> View Project Details
+                            </button>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Permanent Record System</h3>
@@ -1171,14 +1313,18 @@
                 </div>
                 
                 <!-- Project 2 -->
-                <div class="project-card fade-in delay-1">
+                <div class="project-card fade-in delay-1" data-project-index="1">
                     <div class="project-img-container">
                         <img src="ccs.png" 
                             alt="Computer Studies" 
                             class="project-img">
-                        <button class="view-image-btn" onclick="openModal('ccs.png', 'Computer Studies')">
-                            <i class="fas fa-expand"></i> View Image
-                        </button>
+                        <div class="project-overlay">
+                            <h4>College of Computer Studies System</h4>
+                            <p>Departmental system for managing student information and course data.</p>
+                            <button class="view-project-btn" onclick="openProjectModal(1)">
+                                <i class="fas fa-expand"></i> View Project Details
+                            </button>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>College of Computer Studies System</h3>
@@ -1194,14 +1340,18 @@
                 </div>
                 
                 <!-- Project 3 -->
-                <div class="project-card fade-in delay-2">
+                <div class="project-card fade-in delay-2" data-project-index="2">
                     <div class="project-img-container">
                         <img src="marwil.png" 
                             alt="Inventory System" 
                             class="project-img">
-                        <button class="view-image-btn" onclick="openModal('marwil.png', 'Inventory System')">
-                            <i class="fas fa-expand"></i> View Image
-                        </button>
+                        <div class="project-overlay">
+                            <h4>Marwil Inventory System</h4>
+                            <p>Inventory management solution with stock tracking and reporting features.</p>
+                            <button class="view-project-btn" onclick="openProjectModal(2)">
+                                <i class="fas fa-expand"></i> View Project Details
+                            </button>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Marwil Inventory System</h3>
@@ -1216,15 +1366,19 @@
                     </div>
                 </div>
 
-                <!-- Project 3 -->
-                <div class="project-card fade-in delay-2">
+                <!-- Project 4 -->
+                <div class="project-card fade-in delay-3" data-project-index="3">
                     <div class="project-img-container">
                         <img src="vtrends1.jpg" 
-                            alt="Inventory System" 
+                            alt="POS System" 
                             class="project-img">
-                        <button class="view-image-btn" onclick="openModal('vtrends1.jpg', 'Inventory System')">
-                            <i class="fas fa-expand"></i> View Image
-                        </button>
+                        <div class="project-overlay">
+                            <h4>Vtrends.MLFP POS and Inventory System</h4>
+                            <p>POS and Inventory management solution with stock tracking and reporting features.</p>
+                            <button class="view-project-btn" onclick="openProjectModal(3)">
+                                <i class="fas fa-expand"></i> View Project Details
+                            </button>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3>Vtrends.MLFP POS and Inventory System</h3>
@@ -1288,8 +1442,8 @@
                     </div>
                     <h3 style="margin-top: 3rem;">Connect With Me</h3>
                     <div class="social-links">
-                        <a href="https://github.com/garciaiancarlo" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://www.facebook.com/ian.carlo.castro.garcia" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://github.com/garciaiancarlo" aria-label="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.facebook.com/ian.carlo.castro.garcia" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
             </div>
@@ -1320,15 +1474,60 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <!-- Image Modal/Lightbox -->
-    <div id="imageModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
+    <!-- Enhanced Project Modal/Lightbox -->
+    <div id="projectModal" class="modal">
+        <div class="modal-nav">
+            <div class="modal-arrow" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="modal-arrow" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+        <span class="modal-close" id="modalClose">&times;</span>
+        <div class="image-counter" id="imageCounter">1 / 4</div>
         <img class="modal-content" id="modalImage">
-        <div id="caption" class="caption"></div>
+        <div class="modal-info">
+            <h3 id="modalTitle">Project Title</h3>
+            <p id="modalDescription">Project description will appear here.</p>
+            <div class="modal-tags" id="modalTags">
+                <!-- Tags will be dynamically inserted here -->
+            </div>
+        </div>
     </div>
 
     <!-- JavaScript -->
     <script>
+        // Project Data
+        const projects = [
+            {
+                title: "Permanent Record System",
+                image: "484236646_1222918102712725_7758611042177879553_n.jpg",
+                description: "A comprehensive student record management system with full CRUD functionality and data visualization capabilities. Features include student enrollment tracking, grade management, and report generation.",
+                tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "CRUD Operations"]
+            },
+            {
+                title: "College of Computer Studies System",
+                image: "ccs.png",
+                description: "Departmental system for managing student information, course data, and faculty assignments. Includes user authentication, role-based access, and automated scheduling features.",
+                tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "User Authentication"]
+            },
+            {
+                title: "Marwil Inventory System",
+                image: "marwil.png",
+                description: "Inventory management solution with real-time stock tracking, reporting features, and supplier management. Includes barcode scanning capabilities and automated reorder notifications.",
+                tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Inventory Management"]
+            },
+            {
+                title: "Vtrends.MLFP POS and Inventory System",
+                image: "vtrends1.jpg",
+                description: "Complete Point of Sale and Inventory management solution designed for retail businesses. Features include sales processing, customer management, inventory tracking, and comprehensive sales reports.",
+                tags: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "POS System", "Inventory"]
+            }
+        ];
+
+        let currentProjectIndex = 0;
+
         // Mobile Menu Toggle
         const menuBtn = document.getElementById('menu-btn');
         const navLinks = document.querySelector('.nav-links');
@@ -1403,39 +1602,95 @@
             observer.observe(element);
         });
 
-        // Image Modal Functionality
-        function openModal(imgSrc, imgAlt) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            const caption = document.getElementById('caption');
-            
+        // Project Modal Functionality
+        const modal = document.getElementById('projectModal');
+        const modalImg = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalTags = document.getElementById('modalTags');
+        const imageCounter = document.getElementById('imageCounter');
+        const modalClose = document.getElementById('modalClose');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Open modal with specific project
+        function openProjectModal(index) {
+            currentProjectIndex = index;
+            updateModal();
             modal.style.display = "block";
-            modalImg.src = imgSrc;
-            modalImg.alt = imgAlt;
-            caption.innerHTML = imgAlt;
             document.body.style.overflow = 'hidden';
         }
 
+        // Update modal content
+        function updateModal() {
+            const project = projects[currentProjectIndex];
+            modalImg.src = project.image;
+            modalImg.alt = project.title;
+            modalTitle.textContent = project.title;
+            modalDescription.textContent = project.description;
+            imageCounter.textContent = `${currentProjectIndex + 1} / ${projects.length}`;
+            
+            // Update tags
+            modalTags.innerHTML = '';
+            project.tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'modal-tag';
+                tagElement.textContent = tag;
+                modalTags.appendChild(tagElement);
+            });
+        }
+
+        // Close modal
         function closeModal() {
-            const modal = document.getElementById('imageModal');
             modal.style.display = "none";
             document.body.style.overflow = 'auto';
         }
 
+        // Navigation between projects
+        function showNextProject() {
+            currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+            updateModal();
+        }
+
+        function showPrevProject() {
+            currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+            updateModal();
+        }
+
+        // Event listeners
+        modalClose.addEventListener('click', closeModal);
+        prevBtn.addEventListener('click', showPrevProject);
+        nextBtn.addEventListener('click', showNextProject);
+
         // Close modal when clicking outside the image
         window.addEventListener('click', function(event) {
-            const modal = document.getElementById('imageModal');
             if (event.target === modal) {
                 closeModal();
             }
         });
 
-        // Close with ESC key
+        // Keyboard navigation
         document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('imageModal');
-            if (event.key === 'Escape' && modal.style.display === 'block') {
-                closeModal();
+            if (modal.style.display === 'block') {
+                if (event.key === 'Escape') {
+                    closeModal();
+                } else if (event.key === 'ArrowRight') {
+                    showNextProject();
+                } else if (event.key === 'ArrowLeft') {
+                    showPrevProject();
+                }
             }
+        });
+
+        // Make entire project card clickable
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicking on the button inside
+                if (!e.target.closest('.view-project-btn')) {
+                    const index = parseInt(this.getAttribute('data-project-index'));
+                    openProjectModal(index);
+                }
+            });
         });
 
         // Additional animation for triangles
@@ -1451,5 +1706,4 @@
         });
     </script>
 </body>
-
 </html>
